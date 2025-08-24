@@ -47,11 +47,11 @@ export function LoginForm({
       )}
       <div className="grid gap-6">
         <div className="grid gap-3">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">邮箱</Label>
           <Input
             id="email"
             type="email"
-            placeholder="m@example.com"
+            placeholder="admin@dcm.mcn"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -59,24 +59,25 @@ export function LoginForm({
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">密码</Label>
             <a
               href="#"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
-              Forgot your password?
+              忘记密码 ?
             </a>
           </div>
           <Input
             id="password"
             type="password"
+            placeholder="admin123"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
         <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "登录中..." : "登录"}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">

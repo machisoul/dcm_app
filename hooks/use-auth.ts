@@ -26,9 +26,9 @@ export function useAuth() {
 
   const login = (email: string, password: string) => {
     // Default admin account for demo
-    const defaultEmail = 'admin@dcm.com'
+    const defaultEmail = 'admin@dcm.mcn'
     const defaultPassword = 'admin123'
-    
+
     // Check if it's the default account or any valid email format
     if (email === defaultEmail && password === defaultPassword) {
       const user: User = {
@@ -36,12 +36,12 @@ export function useAuth() {
         email: defaultEmail,
         name: 'Admin'
       }
-      
+
       localStorage.setItem('dcm_user', JSON.stringify(user))
       setUser(user)
       return Promise.resolve(user)
     }
-    
+
     // For demo purposes, accept any valid email format with any password
     if (email.includes('@') && password.length > 0) {
       const user: User = {
@@ -49,12 +49,12 @@ export function useAuth() {
         email,
         name: email.split('@')[0]
       }
-      
+
       localStorage.setItem('dcm_user', JSON.stringify(user))
       setUser(user)
       return Promise.resolve(user)
     }
-    
+
     // If credentials don't match, reject
     return Promise.reject(new Error('Invalid credentials'))
   }
