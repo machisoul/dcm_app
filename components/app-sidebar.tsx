@@ -33,8 +33,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { PageView } from "@/types/navigation"
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  onViewChange?: (view: PageView) => void
+  currentView?: PageView
+}
+
+export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }: AppSidebarProps) {
   const { user } = useAuthContext()
 
   const data = {
@@ -46,27 +52,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: [
       {
         title: "Dashboard",
-        url: "#",
+        view: "dashboard" as PageView,
         icon: IconDashboard,
       },
       {
-        title: "Lifecycle",
-        url: "#",
+        title: "Tasks",
+        view: "tasks" as PageView,
         icon: IconListDetails,
       },
       {
         title: "Analytics",
-        url: "#",
+        view: "dashboard" as PageView,
         icon: IconChartBar,
       },
       {
         title: "Projects",
-        url: "#",
+        view: "dashboard" as PageView,
         icon: IconFolder,
       },
       {
         title: "Team",
-        url: "#",
+        view: "dashboard" as PageView,
         icon: IconUsers,
       },
     ],
@@ -172,7 +178,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={data.navMain} onViewChange={onViewChange} currentView={currentView} />
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>

@@ -1,17 +1,23 @@
+"use client"
+
+import { useState } from "react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { DataTable } from "@/components/data-table"
 import { SectionCards } from "@/components/section-cards"
-import { SiteHeader } from "@/components/site-header"
 import { AuthRedirect } from "@/components/auth-redirect"
 import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
+import { PageView } from "@/types/navigation"
 
 import data from "./data.json"
+import { TasksView } from "./tasks-view"
 
 export default function Page() {
+  const [currentView, setCurrentView] = useState<PageView>("dashboard")
+
   return (
     <AuthRedirect requireAuth>
       <SidebarProvider
@@ -22,18 +28,21 @@ export default function Page() {
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" />
+        <AppSidebar variant="inset" onViewChange={setCurrentView} currentView={currentView} />
         <SidebarInset>
-          <SiteHeader />
           <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">
-              <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                <SectionCards />
-                <div className="px-4 lg:px-6">
-                  <ChartAreaInteractive />
+              {currentView === "dashboard" ? (
+                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                  <SectionCards />
+                  <div className="px-4 lg:px-6">
+                    <ChartAreaInteractive />
+                  </div>
+                  <DataTable data={data} />
                 </div>
-                <DataTable data={data} />
-              </div>
+              ) : (
+                <TasksView />
+              )}
             </div>
           </div>
         </SidebarInset>

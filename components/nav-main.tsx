@@ -10,16 +10,20 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { PageView } from "@/types/navigation"
 
-export function NavMain({
-  items,
-}: {
+interface NavMainProps {
   items: {
     title: string
-    url: string
+    view?: PageView
+    url?: string
     icon?: Icon
   }[]
-}) {
+  onViewChange?: (view: PageView) => void
+  currentView?: PageView
+}
+
+export function NavMain({ items, onViewChange, currentView = "dashboard" }: NavMainProps) {
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -45,7 +49,15 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
+              <SidebarMenuButton 
+                tooltip={item.title}
+                isActive={item.view === currentView}
+                onClick={() => {
+                  if (item.view && onViewChange) {
+                    onViewChange(item.view)
+                  }
+                }}
+              >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>
