@@ -14,9 +14,34 @@ import { PageView } from "@/types/navigation"
 
 import data from "./data.json"
 import { TasksView } from "./tasks-view"
+import { InfluencerExpansionView } from "./influencer-expansion-view"
+import { ContentAnalysisView } from "./content-analysis-view"
 
 export default function Page() {
   const [currentView, setCurrentView] = useState<PageView>("dashboard")
+
+  const renderView = () => {
+    switch (currentView) {
+      case "dashboard":
+        return (
+          <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+            <SectionCards />
+            <div className="px-4 lg:px-6">
+              <ChartAreaInteractive />
+            </div>
+            <DataTable data={data} />
+          </div>
+        )
+      case "influencer-expansion":
+        return <InfluencerExpansionView />
+      case "content-analysis":
+        return <ContentAnalysisView />
+      case "tasks":
+        return <TasksView />
+      default:
+        return null
+    }
+  }
 
   return (
     <AuthRedirect requireAuth>
@@ -32,17 +57,7 @@ export default function Page() {
         <SidebarInset>
           <div className="flex flex-1 flex-col">
             <div className="@container/main flex flex-1 flex-col gap-2">
-              {currentView === "dashboard" ? (
-                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                  <SectionCards />
-                  <div className="px-4 lg:px-6">
-                    <ChartAreaInteractive />
-                  </div>
-                  <DataTable data={data} />
-                </div>
-              ) : (
-                <TasksView />
-              )}
+              {renderView()}
             </div>
           </div>
         </SidebarInset>

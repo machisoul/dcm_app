@@ -62,9 +62,9 @@ export function useAuth() {
   const logout = () => {
     localStorage.removeItem('dcm_user')
     setUser(null)
-    // Redirect to login page after logout
+    // Redirect to landing page after logout
     if (typeof window !== 'undefined') {
-      window.location.href = '/login'
+      window.location.href = '/'
     }
   }
 

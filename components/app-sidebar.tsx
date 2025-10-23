@@ -3,23 +3,18 @@
 import * as React from "react"
 import {
   IconCamera,
-  IconChartBar,
   IconDashboard,
-  IconDatabase,
   IconFileAi,
   IconFileDescription,
-  IconFileWord,
-  IconFolder,
   IconHelp,
   IconInnerShadowTop,
   IconListDetails,
-  IconReport,
   IconSearch,
   IconSettings,
   IconUsers,
+  IconChartBar,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -56,24 +51,19 @@ export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }
         icon: IconDashboard,
       },
       {
-        title: "Tasks",
-        view: "tasks" as PageView,
-        icon: IconListDetails,
+        title: "达人拓展",
+        view: "influencer-expansion" as PageView,
+        icon: IconUsers,
       },
       {
-        title: "Analytics",
-        view: "dashboard" as PageView,
+        title: "创作分析",
+        view: "content-analysis" as PageView,
         icon: IconChartBar,
       },
       {
-        title: "Projects",
-        view: "dashboard" as PageView,
-        icon: IconFolder,
-      },
-      {
-        title: "Team",
-        view: "dashboard" as PageView,
-        icon: IconUsers,
+        title: "Tasks",
+        view: "tasks" as PageView,
+        icon: IconListDetails,
       },
     ],
     navClouds: [
@@ -141,23 +131,6 @@ export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }
         icon: IconSearch,
       },
     ],
-    documents: [
-      {
-        name: "Data Library",
-        url: "#",
-        icon: IconDatabase,
-      },
-      {
-        name: "Reports",
-        url: "#",
-        icon: IconReport,
-      },
-      {
-        name: "Word Assistant",
-        url: "#",
-        icon: IconFileWord,
-      },
-    ],
   }
 
   return (
@@ -179,7 +152,6 @@ export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} onViewChange={onViewChange} currentView={currentView} />
-        <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

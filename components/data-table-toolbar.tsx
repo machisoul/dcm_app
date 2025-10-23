@@ -49,7 +49,6 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
       </div>
       <div className="flex items-center gap-2">
         <DataTableViewOptions table={table} />
-        <Button size="sm">Add Task</Button>
       </div>
     </div>
   );

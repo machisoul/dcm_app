@@ -1,1 +1,1 @@
-export type PageView = "dashboard" | "tasks"
+export type PageView = "dashboard" | "tasks" | "influencer-expansion" | "content-analysis"
