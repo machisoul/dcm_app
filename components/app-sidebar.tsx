@@ -70,7 +70,7 @@ export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }
         icon: IconChartBar,
       },
       {
-        title: "Tasks",
+        title: "任务列表",
         view: "tasks" as PageView,
         icon: IconListDetails,
       },

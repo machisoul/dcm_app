@@ -25,6 +25,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { IconTrash, IconEdit, IconCheck, IconX, IconPlus } from '@tabler/icons-react'
 
 interface LargeModel {
@@ -44,6 +51,36 @@ interface SettingsDialogProps {
   isOpen: boolean
   onClose: () => void
 }
+
+// Predefined model options
+const MODEL_OPTIONS = [
+  'GPT-4',
+  'GPT-3.5',
+  'Claude',
+  'Claude 3.5 Sonnet',
+  'Claude 3 Opus',
+  '通义千问',
+  '文心一言',
+  'Gemini',
+  'Llama',
+  'ChatGLM',
+  '其他'
+]
+
+// Predefined platform options
+const PLATFORM_OPTIONS = [
+  '抖音',
+  '快手',
+  '小红书',
+  'B站',
+  '微博',
+  '视频号',
+  '知乎',
+  '淘宝',
+  '京东',
+  '拼多多',
+  '其他'
+]
 
 export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
   // Large Models
@@ -184,12 +221,21 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
                 <div className="grid gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="new-model-name">模型名称</Label>
-                    <Input
-                      id="new-model-name"
-                      placeholder="例如：GPT-4、Claude、通义千问"
+                    <Select
                       value={newModel.name}
-                      onChange={(e) => setNewModel({ ...newModel, name: e.target.value })}
-                    />
+                      onValueChange={(value) => setNewModel({ ...newModel, name: value })}
+                    >
+                      <SelectTrigger id="new-model-name">
+                        <SelectValue placeholder="选择大模型" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {MODEL_OPTIONS.map((model) => (
+                          <SelectItem key={model} value={model}>
+                            {model}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
@@ -238,10 +284,21 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
                             <>
                               <div className="space-y-1">
                                 <Label>模型名称</Label>
-                                <Input
+                                <Select
                                   value={model.name}
-                                  onChange={(e) => handleUpdateModel(model.id, 'name', e.target.value)}
-                                />
+                                  onValueChange={(value) => handleUpdateModel(model.id, 'name', value)}
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="选择大模型" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {MODEL_OPTIONS.map((option) => (
+                                      <SelectItem key={option} value={option}>
+                                        {option}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
                               </div>
                               <div className="space-y-1">
                                 <Label>API URL</Label>
@@ -327,12 +384,21 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
                 <div className="grid gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="new-platform">平台名称</Label>
-                    <Input
-                      id="new-platform"
-                      placeholder="例如：抖音、小红书、B站"
+                    <Select
                       value={newCookie.platform}
-                      onChange={(e) => setNewCookie({ ...newCookie, platform: e.target.value })}
-                    />
+                      onValueChange={(value) => setNewCookie({ ...newCookie, platform: value })}
+                    >
+                      <SelectTrigger id="new-platform">
+                        <SelectValue placeholder="选择平台" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {PLATFORM_OPTIONS.map((platform) => (
+                          <SelectItem key={platform} value={platform}>
+                            {platform}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
@@ -371,10 +437,21 @@ export function SettingsDialog({ isOpen, onClose }: SettingsDialogProps) {
                             <>
                               <div className="space-y-1">
                                 <Label>平台名称</Label>
-                                <Input
+                                <Select
                                   value={cookie.platform}
-                                  onChange={(e) => handleUpdateCookie(cookie.id, 'platform', e.target.value)}
-                                />
+                                  onValueChange={(value) => handleUpdateCookie(cookie.id, 'platform', value)}
+                                >
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="选择平台" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {PLATFORM_OPTIONS.map((platform) => (
+                                      <SelectItem key={platform} value={platform}>
+                                        {platform}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
                               </div>
                               <div className="space-y-1">
                                 <Label>Cookie</Label>
