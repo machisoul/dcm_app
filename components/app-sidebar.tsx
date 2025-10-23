@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useState } from "react"
 import {
   IconCamera,
   IconDashboard,
@@ -18,6 +19,7 @@ import {
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
+import { SettingsDialog } from "@/components/settings-dialog"
 import { useAuthContext } from "@/components/auth-provider"
 import {
   Sidebar,
@@ -37,6 +39,13 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }: AppSidebarProps) {
   const { user } = useAuthContext()
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+
+  const handleSecondaryItemClick = (title: string) => {
+    if (title === "Settings") {
+      setIsSettingsOpen(true)
+    }
+  }
 
   const data = {
     user: {
@@ -152,11 +161,16 @@ export function AppSidebar({ onViewChange, currentView = "dashboard", ...props }
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} onViewChange={onViewChange} currentView={currentView} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={data.navSecondary} className="mt-auto" onItemClick={handleSecondaryItemClick} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+
+      <SettingsDialog
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
     </Sidebar>
   )
 }

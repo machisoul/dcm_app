@@ -13,6 +13,7 @@ import {
 
 export function NavSecondary({
   items,
+  onItemClick,
   ...props
 }: {
   items: {
@@ -20,18 +21,36 @@ export function NavSecondary({
     url: string
     icon: Icon
   }[]
+  onItemClick?: (title: string) => void
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
+  const handleClick = (item: { title: string; url: string }) => {
+    if (onItemClick && item.url === "#") {
+      // If there's a click handler and the URL is "#", trigger the handler
+      onItemClick(item.title)
+    }
+  }
+
   return (
     <SidebarGroup {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild>
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.title}</span>
-                </a>
+              <SidebarMenuButton
+                asChild={item.url !== "#"}
+                onClick={() => handleClick(item)}
+              >
+                {item.url !== "#" ? (
+                  <a href={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </a>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </div>
+                )}
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
